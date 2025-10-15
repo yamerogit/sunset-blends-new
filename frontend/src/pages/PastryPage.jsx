@@ -39,8 +39,8 @@ const imgStyle = {
 };
 
 const breads = [
-  { id: "milky-cheese", name: "Milky Cheese Bread", image: milkyCheese },
-  { id: "double-cheese", name: "Double Cheese Bread", image: doubleCheese },
+  { id: "milky-cheese-bread", name: "Milky Cheese Bread", image: milkyCheese },
+  { id: "double-cheese-bread", name: "Double Cheese Bread", image: doubleCheese },
   { id: "cinnamon-roll", name: "Cinnamon Roll", image: cinnamonRoll },
 ];
 const cookies = [
