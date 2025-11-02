@@ -6,7 +6,7 @@ import WelcomeSection from "../components/Homepage/WelcomeSection";
 
 const HomePage = () => {
     return(
-        <div className="min-h-screen">
+        <div className="min-h-screen overflow-hidden">
             <NavBar />
             <HeroSection />
             <CategoryMenu />
