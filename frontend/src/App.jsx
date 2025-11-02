@@ -15,8 +15,14 @@ import PdColdCaramelMacchiato from "./pages/productdetails/pdColdCaramelMacchiat
 import PdMilkyCheeseBread from "./pages/productdetails/pdMilkyCheeseBread";
 import PdDoubleCheeseBread from "./pages/productdetails/pdDoubleCheeseBread";
 import PdCinnamonRoll from "./pages/productdetails/pdCinnamonRoll";
-
-
+import PdChocoBliss from "./pages/productdetails/pdChocoBliss";
+import PdChocoWaltz from "./pages/productdetails/pdChocoWaltz";
+import PdMatchaDream from "./pages/productdetails/pdMatchaDream";
+import PdCrimsonCrave from "./pages/productdetails/pdCrimsonCrave";
+import PdChocoBrownie from "./pages/productdetails/pdChocoBrownie";
+import PdCrimsonCreams from "./pages/productdetails/pdCrimsonCreams";
+import PdBananaMuffin from "./pages/productdetails/pdBananaMuffin";
+import PdChocolateDreamCake from "./pages/productdetails/pdChocolateDreamCake";
 
 const App = () => {
   return ( 
@@ -36,6 +42,14 @@ const App = () => {
         <Route path="/product/milky-cheese-bread" element={<PdMilkyCheeseBread />} />
         <Route path="/product/double-cheese-bread" element={<PdDoubleCheeseBread />} />
         <Route path="/product/cinnamon-roll" element={<PdCinnamonRoll />} />
+        <Route path="/product/choco-bliss" element={<PdChocoBliss />} />
+        <Route path="/product/choco-waltz" element={<PdChocoWaltz />} />
+        <Route path="/product/matcha-dream" element={<PdMatchaDream />} />
+        <Route path="/product/crimson-crave" element={<PdCrimsonCrave />} />
+        <Route path="/product/choco-brownie" element={<PdChocoBrownie />} />
+        <Route path="/product/crimson-creams" element={<PdCrimsonCreams />} />
+        <Route path="/product/banana-muffin" element={<PdBananaMuffin />} />
+        <Route path="/product/choco-dream-cake" element={<PdChocolateDreamCake />} />
       </Routes>
     </div>
   ); 
