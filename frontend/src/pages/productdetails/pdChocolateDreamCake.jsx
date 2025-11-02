@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
+import { CartContext } from '../../context/CartContext';
+import toast from 'react-hot-toast';
 // Update the import path to your correct image:
 import chocolateDreamCake from '../../images/Pastry/ChocoDreamCake.png';
 
@@ -10,6 +12,34 @@ const quantityOptions = [
 
 const PdChocolateDreamCake = () => {
   const [selectedOption, setSelectedOption] = useState(quantityOptions[0]);
+  const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    const item = {
+      id: 'chocolate-dream-cake',
+      name: 'Chocolate Dream Cake',
+      price: selectedOption.price,
+      size: selectedOption.label,
+      image: chocolateDreamCake
+    };
+    
+    addToCart(item);
+    
+    toast.success(`${selectedOption.label} added to cart!`, {
+      duration: 2000,
+      position: 'top-center',
+      style: {
+        background: '#218C8D',
+        color: '#fff',
+        fontWeight: '600',
+      },
+    });
+    
+    setTimeout(() => {
+      navigate('/cart');
+    }, 1000);
+  };
 
   return (
     <div 
@@ -106,7 +136,10 @@ const PdChocolateDreamCake = () => {
             </div>
 
             {/* Add to Cart Button */}
-            <button className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg">
+            <button 
+              onClick={handleAddToCart}
+              className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg"
+            >
               Add to Cart
             </button>
           </div>

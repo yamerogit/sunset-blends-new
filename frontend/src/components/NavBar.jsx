@@ -1,5 +1,7 @@
 import { FaSearch, FaShoppingCart, FaUser, FaBars } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router';
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
 
 const navLinks = [
   { name: 'HOME', to: '/' },
@@ -9,6 +11,8 @@ const navLinks = [
 
 const NavBar = () => {
   const location = useLocation();
+  const { getCartCount } = useContext(CartContext);
+  const cartCount = getCartCount();
 
   return (
     <nav
@@ -52,7 +56,16 @@ const NavBar = () => {
 
         {/* Icon buttons evenly spaced and aligned right */}
         <div className="flex justify-end items-center gap-6 ml-auto">
-          <FaShoppingCart className="text-[#211511] text-base cursor-pointer hover:text-[#8b6f58]"/>
+          {/* Cart Icon with Badge */}
+          <Link to="/cart" className="relative">
+            <FaShoppingCart className="text-[#211511] text-base cursor-pointer hover:text-[#8b6f58]"/>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-[#694e3c] text-white rounded-full w-4 h-4 flex items-center justify-center text-xs font-semibold">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+          
           <FaUser className="text-[#211511] text-base cursor-pointer hover:text-[#8b6f58]"/>
           <FaBars className="text-[#211511] text-base cursor-pointer hover:text-[#8b6f58]"/>
         </div>

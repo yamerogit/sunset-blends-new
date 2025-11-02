@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
+import { CartContext } from '../../context/CartContext';
+import toast from 'react-hot-toast';
 import milkyCheeseBread from '../../images/Pastry/MilkyCheese.PNG';
 
 const quantityOptions = [
@@ -11,6 +13,34 @@ const quantityOptions = [
 
 const PdMilkyCheeseBread = () => {
   const [selectedOption, setSelectedOption] = useState(quantityOptions[0]);
+  const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    const item = {
+      id: 'milky-cheese-bread',
+      name: 'Milky Cheese',
+      price: selectedOption.price,
+      size: selectedOption.label,
+      image: milkyCheeseBread
+    };
+    
+    addToCart(item);
+    
+    toast.success(`${selectedOption.label} added to cart!`, {
+      duration: 2000,
+      position: 'top-center',
+      style: {
+        background: '#218C8D',
+        color: '#fff',
+        fontWeight: '600',
+      },
+    });
+    
+    setTimeout(() => {
+      navigate('/cart');
+    }, 1000);
+  };
 
   return (
     <div 
@@ -88,7 +118,7 @@ const PdMilkyCheeseBread = () => {
                 </div>
               </div>
               {/* Price Display, right-aligned */}
-              <div className="flex flex-col">
+              <div className="flex flex-col" style={{minWidth:'170px'}}>
                 <h3 className="text-[#322315] font-semibold text-lg mb-3 text-right">Price</h3>
                 <div className="flex items-center justify-end h-full text-2xl font-bold text-[#322315]">
                   ₱{selectedOption.price}
@@ -107,7 +137,10 @@ const PdMilkyCheeseBread = () => {
             </div>
 
             {/* Add to Cart Button */}
-            <button className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg">
+            <button 
+              onClick={handleAddToCart}
+              className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg"
+            >
               Add to Cart
             </button>
           </div>

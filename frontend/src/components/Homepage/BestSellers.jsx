@@ -49,7 +49,7 @@ const BestSellers = () => (
           key={item.name}
           className="
             flex flex-col items-center
-            bg-[#ffffff69]
+            bg-[#F3E9DC]
             rounded-3xl
             shadow
             py-10

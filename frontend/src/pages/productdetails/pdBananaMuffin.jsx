@@ -1,16 +1,49 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
+import { CartContext } from '../../context/CartContext';
+import toast from 'react-hot-toast';
 // Update the import path to your correct image:
 import bananaMuffin from '../../images/Pastry/BananaMuffin.png';
+
 
 const quantityOptions = [
   { label: '1 Piece', value: 1, price: 50 },
   { label: '3 Pieces', value: 3, price: 149 }
 ];
 
+
 const PdBananaMuffin = () => {
   const [selectedOption, setSelectedOption] = useState(quantityOptions[0]);
+  const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    const item = {
+      id: 'banana-muffin',
+      name: 'Banana Muffin',
+      price: selectedOption.price,
+      size: selectedOption.label,
+      image: bananaMuffin
+    };
+    
+    addToCart(item);
+    
+    toast.success(`${selectedOption.label} added to cart!`, {
+      duration: 2000,
+      position: 'top-center',
+      style: {
+        background: '#218C8D',
+        color: '#fff',
+        fontWeight: '600',
+      },
+    });
+    
+    setTimeout(() => {
+      navigate('/cart');
+    }, 1000);
+  };
+
 
   return (
     <div 
@@ -18,6 +51,7 @@ const PdBananaMuffin = () => {
       style={{ background: "#D7BDA6" }}
     >
       <NavBar />
+
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Back Button */}
@@ -56,6 +90,7 @@ const PdBananaMuffin = () => {
               />
             </div>
           </div>
+
 
           {/* Product Details */}
           <div className="flex-1 max-w-xl">
@@ -96,6 +131,7 @@ const PdBananaMuffin = () => {
               </div>
             </div>
 
+
             {/* Total Price */}
             <div className="mb-8 p-4 bg-white/50 rounded-lg">
               <div className="flex justify-between items-center text-lg">
@@ -106,8 +142,12 @@ const PdBananaMuffin = () => {
               </div>
             </div>
 
+
             {/* Add to Cart Button */}
-            <button className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg">
+            <button 
+              onClick={handleAddToCart}
+              className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg"
+            >
               Add to Cart
             </button>
           </div>
@@ -116,5 +156,6 @@ const PdBananaMuffin = () => {
     </div>
   );
 };
+
 
 export default PdBananaMuffin;

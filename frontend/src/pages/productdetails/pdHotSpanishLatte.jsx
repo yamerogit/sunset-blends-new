@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
+import { CartContext } from '../../context/CartContext';
+import toast from 'react-hot-toast';
 // Update the import path to your Spanish Latte image:
 import hotSpanishLatte from '../../images/Coffee/HotSpanishLatte.png';
 
 const PdHotSpanishLatte = () => {
   const [selectedSize, setSelectedSize] = useState('12oz');
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const sizeOptions = ['12oz', '16oz'];
   const prices = {
@@ -16,6 +20,35 @@ const PdHotSpanishLatte = () => {
 
   const handleQuantityChange = (increment) => {
     setQuantity(prev => Math.max(1, prev + increment));
+  };
+
+  const handleAddToCart = () => {
+    const item = {
+      id: `hot-spanish-latte-${selectedSize}`,
+      name: 'Hot Spanish Latte',
+      price: prices[selectedSize],
+      size: `Hot, ${selectedSize}`,
+      image: hotSpanishLatte
+    };
+    
+    // Add item based on quantity
+    for (let i = 0; i < quantity; i++) {
+      addToCart(item);
+    }
+    
+    toast.success(`${quantity} Hot Spanish Latte (${selectedSize}) added to cart!`, {
+      duration: 2000,
+      position: 'top-center',
+      style: {
+        background: '#218C8D',
+        color: '#fff',
+        fontWeight: '600',
+      },
+    });
+    
+    setTimeout(() => {
+      navigate('/cart');
+    }, 1000);
   };
 
   const currentPrice = prices[selectedSize];
@@ -54,7 +87,7 @@ const PdHotSpanishLatte = () => {
                 justifyContent: "center"
               }}
             >
-              <img
+              <img 
                 src={hotSpanishLatte}
                 alt="Hot Spanish Latte"
                 style={{
@@ -143,7 +176,10 @@ const PdHotSpanishLatte = () => {
             </div>
 
             {/* Add to Cart Button */}
-            <button className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg">
+            <button 
+              onClick={handleAddToCart}
+              className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg"
+            >
               Add to Cart
             </button>
           </div>

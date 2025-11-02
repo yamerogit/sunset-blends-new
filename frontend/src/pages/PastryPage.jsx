@@ -60,7 +60,7 @@ const PastryPage = () => (
   <div
     className="min-h-screen w-full"
     style={{
-      background: "#D7BDA6",
+      background: "#F3E9DC",
     }}
   >
     <NavBar />

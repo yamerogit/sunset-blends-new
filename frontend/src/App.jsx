@@ -3,7 +3,10 @@ import { Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
 import CoffeePage from "./pages/CoffeePage";
 import PastryPage from "./pages/PastryPage";
-// Add this import
+import CartPage from './pages/CartPage';
+import OrderSummaryPage from './pages/OrderSummaryPage';
+import OrderPlacedPage from './pages/OrderPlacedPage';
+
 import PdHotDarkMocha from "./pages/productdetails/pdHotDarkMocha";
 import PdHotAmericano from "./pages/productdetails/pdHotAmericano";
 import PdHotSpanishLatte from "./pages/productdetails/pdHotSpanishLatte";
@@ -31,6 +34,8 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/coffee" element={<CoffeePage />} />
         <Route path="/pastry" element={<PastryPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/order-summary" element={<OrderSummaryPage />} />
         <Route path="/product/hot-dark-mocha" element={<PdHotDarkMocha />} />
         <Route path="/product/hot-americano" element={<PdHotAmericano />} />
         <Route path="/product/hot-spanish-latte" element={<PdHotSpanishLatte />} />
@@ -50,6 +55,7 @@ const App = () => {
         <Route path="/product/crimson-creams" element={<PdCrimsonCreams />} />
         <Route path="/product/banana-muffin" element={<PdBananaMuffin />} />
         <Route path="/product/choco-dream-cake" element={<PdChocolateDreamCake />} />
+        <Route path="/order-placed" element={<OrderPlacedPage />} />
       </Routes>
     </div>
   ); 

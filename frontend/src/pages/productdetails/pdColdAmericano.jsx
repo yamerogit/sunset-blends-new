@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
+import { CartContext } from '../../context/CartContext';
+import toast from 'react-hot-toast';
 // Update the import path to your Cold Americano image
 import coldAmericano from '../../images/Coffee/ColdAmericano.png';
+
 
 const PdColdAmericano = () => {
   const [selectedSize, setSelectedSize] = useState('12oz');
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
 
   const sizeOptions = ['12oz', '16oz'];
   const prices = {
@@ -14,12 +20,44 @@ const PdColdAmericano = () => {
     '16oz': 59
   };
 
+
   const handleQuantityChange = (increment) => {
     setQuantity(prev => Math.max(1, prev + increment));
   };
 
+  const handleAddToCart = () => {
+    const item = {
+      id: `cold-americano-${selectedSize}`,
+      name: 'Cold Americano',
+      price: prices[selectedSize],
+      size: `Cold, ${selectedSize}`,
+      image: coldAmericano
+    };
+    
+    // Add item based on quantity
+    for (let i = 0; i < quantity; i++) {
+      addToCart(item);
+    }
+    
+    toast.success(`${quantity} Cold Americano (${selectedSize}) added to cart!`, {
+      duration: 2000,
+      position: 'top-center',
+      style: {
+        background: '#218C8D',
+        color: '#fff',
+        fontWeight: '600',
+      },
+    });
+    
+    setTimeout(() => {
+      navigate('/cart');
+    }, 1000);
+  };
+
+
   const currentPrice = prices[selectedSize];
   const totalPrice = currentPrice * quantity;
+
 
   return (
     <div 
@@ -40,6 +78,7 @@ const PdColdAmericano = () => {
           </svg>
           Back to Coffee
         </Link>
+
 
         <div className="flex gap-16 items-start" style={{ marginLeft: "100px" }}>
           {/* Product Image */}
@@ -67,6 +106,7 @@ const PdColdAmericano = () => {
             </div>
           </div>
 
+
           {/* Product Details */}
           <div className="flex-1 max-w-xl">
             <h1 className="text-4xl font-bold text-[#322315] mb-4 font-mono">
@@ -76,6 +116,7 @@ const PdColdAmericano = () => {
             <p className="text-[#322315] text-base mb-6 leading-relaxed" style={{ maxWidth: '600px' }}>
               Classic espresso served over ice and diluted with cold water for a bold, refreshing coffee with pure flavor and a cooling finish.
             </p>
+
 
             {/* Size & Quantity aligned far apart, label above "-" */}
             <div className="flex items-end justify-between mb-8" style={{maxWidth: '600px'}}>
@@ -98,6 +139,7 @@ const PdColdAmericano = () => {
                   ))}
                 </div>
               </div>
+
 
               {/* Quantity Selection, label centered above minus */}
               <div className="flex flex-col items-center">
@@ -123,6 +165,7 @@ const PdColdAmericano = () => {
               </div>
             </div>
 
+
             {/* Price Display */}
             <div className="mb-6">
               <span className="text-3xl font-bold text-[#322315]">
@@ -130,6 +173,7 @@ const PdColdAmericano = () => {
               </span>
               <span className="text-[#666] ml-2">per cup</span>
             </div>
+
 
             {/* Total Price */}
             <div className="mb-8 p-4 bg-white/50 rounded-lg">
@@ -141,8 +185,12 @@ const PdColdAmericano = () => {
               </div>
             </div>
 
+
             {/* Add to Cart Button */}
-            <button className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg">
+            <button 
+              onClick={handleAddToCart}
+              className="w-full bg-[#322315] text-white py-4 px-8 rounded-full text-lg font-semibold hover:bg-[#4a3422] transition-colors shadow-lg"
+            >
               Add to Cart
             </button>
           </div>
@@ -151,5 +199,6 @@ const PdColdAmericano = () => {
     </div>
   );
 };
+
 
 export default PdColdAmericano;
